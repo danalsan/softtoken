@@ -26,22 +26,18 @@ import pyotp
 
 __version__ = '0.0.1'
 
-CONFIG_FILE = 'softtoken.conf'
+CONFIG_FILE = '.softtoken.conf'
 
 
 def load_config():
-    dir_path = path.join(
-        path.dirname(path.realpath(__file__)),
-        CONFIG_FILE)
+    dir_path = path.join(path.expanduser('~'), CONFIG_FILE)
     cfg = configparser.SafeConfigParser()
     cfg.read(dir_path)
     return cfg
 
 
 def save_config(cfg):
-    dir_path = path.join(
-        path.dirname(path.realpath(__file__)),
-        CONFIG_FILE)
+    dir_path = path.join(path.expanduser('~'), CONFIG_FILE)
     try:
         with open(dir_path, 'w+') as configfile:
             cfg.write(configfile)

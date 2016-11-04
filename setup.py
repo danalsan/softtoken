@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from softtoken.softtoken import __version__
 
+__version__ = '0.0.1'
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
@@ -57,16 +57,9 @@ setup(
     py_modules=['softtoken.softtoken'],
     install_requires=[
         'configparser==3.5.0',
-        'flake8==2.5.5',
-        'hacking==0.11.0',
-        'mccabe==0.2.1',
         'pbr>=1.6',
-        'pep8==1.5.7',
-        'pyflakes==0.8.1',
         'pyotp==2.2.1',
-        'python-xlib==0.17',
         'PyUserInput==0.1.11',
-        'six==1.10.0'
     ],
     # extras_require={
     #    'dev': ['check-manifest'],
