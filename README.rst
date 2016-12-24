@@ -3,7 +3,7 @@ SoftToken OTP
 ########################################
 
 SoftToken OTP is an application to generate One-Time-Passwords to be used as a
-second factor authentication mechanism. 
+second factor authentication mechanism.
 It can either print it when executed in the commandline or type it wherever
 your focus is. This can be especially useful when assigning a keybind to use
 your token.
@@ -24,7 +24,7 @@ your token.
 Main features
 =============
 
-* Generate Time-Based One-Time Passwords 
+* Generate Time-Based One-Time Passwords
 * Multiple tokens support
 * Print OTP wherever the focus is (useful for keybindings)
 
@@ -70,7 +70,6 @@ Generate an OTP:
 	$ softtoken -t token1
 	630567
 
-
 Generate an OTP and get it wherever your focus is:
 
 .. code-block:: bash
@@ -78,6 +77,11 @@ Generate an OTP and get it wherever your focus is:
 	$ softtoken -t token1 -X
 	630567
 
+Generate an OTP and copy to clipboard (requires xclip):
+
+.. code-block:: bash
+
+	$ softtoken -t token1 -C
 
 =============
 TODO
@@ -85,5 +89,3 @@ TODO
 
 * Add HOTP support
 * Parametrize TOTP time
-* Add support to copy the OTP automatically into the clipboard 
-

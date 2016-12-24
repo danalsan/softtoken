@@ -16,15 +16,17 @@ import argparse
 import base64
 import configparser
 import hashlib
+import sys
 from os import path
 from os import urandom
-import sys
 
 from pykeyboard import PyKeyboard
+
 import pyotp
 
+import pyperclip
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 CONFIG_FILE = '.softtoken.conf'
 
@@ -104,6 +106,8 @@ def main():
     parser.add_argument('-X', action='store_true', default=False,
                         dest='print_focus', help='Output the OTP where '
                         'the current focus is')
+    parser.add_argument('-C', action='store_true', default=False,
+                        dest='copy_clipboard', help='Copy OTP to clipboard')
 
     args = parser.parse_args()
 
@@ -152,6 +156,8 @@ def main():
     if args.print_focus:
         k = PyKeyboard()
         k.type_string(otp)
+    elif args.copy_clipboard:
+        pyperclip.copy(otp)
     else:
         print(otp)
 
