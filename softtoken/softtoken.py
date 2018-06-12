@@ -142,7 +142,7 @@ def main():
         sys.exit(2)
 
     if args.hash_function == 'sha1':
-        hf = hashlib.sha256
+        hf = hashlib.sha1
     elif args.hash_function == 'sha256':
         hf = hashlib.sha256
     elif args.hash_function == 'sha512':
