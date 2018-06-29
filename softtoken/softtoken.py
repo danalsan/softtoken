@@ -20,8 +20,6 @@ import sys
 from os import path
 from os import urandom
 
-from pykeyboard import PyKeyboard
-
 import pyotp
 
 import pyperclip
@@ -154,6 +152,7 @@ def main():
     otp = totp.now()
 
     if args.print_focus:
+        from pykeyboard import PyKeyboard
         k = PyKeyboard()
         k.type_string(otp)
     elif args.copy_clipboard:
