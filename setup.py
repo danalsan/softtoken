@@ -59,6 +59,7 @@ setup(
         'configparser==3.5.0',
         'pbr>=1.6',
         'pyotp==2.2.1',
+        'pyperclip>=1.5.27',
         'PyUserInput==0.1.11',
     ],
     # extras_require={
