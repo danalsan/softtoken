@@ -46,24 +46,24 @@ def save_config(cfg):
         sys.exit(2)
 
 
-def create_token(name, hash_function='sha256', digits=6, seed_length=20):
+def create_token(name, hash_function='sha256', digits=6, seed_length=16):
     cfg = load_config()
     if cfg.has_section(name):
         print('Token %s already exists. Delete it first' % name)
         sys.exit(2)
 
-    seed = urandom(seed_length)
+    seed = pyotp.random_base32(length=seed_length)
 
     cfg.add_section(name)
-    cfg.set(name, 'hash', hash_function)
+    cfg.set(name, 'hash_function', hash_function)
     cfg.set(name, 'digits', str(digits))
-    cfg.set(name, 'seed', base64.b32encode(seed))
+    cfg.set(name, 'seed', seed)
 
     save_config(cfg)
 
     print('\nNew Token created:\n\n%s\n-------------' % name)
-    print('Seed (hex): %s' % seed.encode('hex'))
-    print('Seed (b32): %s\n' % base64.b32encode(seed))
+    print('Seed (hex): %s\n' % base64.b32decode(seed).hex())
+    print('Seed (b32): %s\n' % seed)
 
 
 def delete_token(name):
@@ -84,7 +84,7 @@ def print_tokens():
 
 def main():
 
-    parser = argparse.ArgumentParser(version=__version__)
+    parser = argparse.ArgumentParser()
     parser.add_argument('--new', action='store_true', default=False,
                         dest='new_token', help='Generate a new Soft Token')
     parser.add_argument('--delete', action='store_true', default=False,
@@ -98,9 +98,9 @@ def main():
                         'function to use (default is sha256)')
     parser.add_argument('--digits', '-d', type=int, default=6, dest='digits',
                         help='OTP Length (default is 6)')
-    parser.add_argument('--length', '-l', type=int, default=20,
+    parser.add_argument('--length', '-l', type=int, default=16,
                         dest='seed_length', help='Seed length in bytes '
-                        '(default is 20)')
+                        '(default is 16)')
     parser.add_argument('-X', action='store_true', default=False,
                         dest='print_focus', help='Output the OTP where '
                         'the current focus is')
@@ -139,11 +139,12 @@ def main():
         print('Token %s does not exist' % args.token_name)
         sys.exit(2)
 
-    if args.hash_function == 'sha1':
+    hash_function = cfg.get(args.token_name, 'hash_function')
+    if hash_function == 'sha1':
         hf = hashlib.sha1
-    elif args.hash_function == 'sha256':
+    elif hash_function == 'sha256':
         hf = hashlib.sha256
-    elif args.hash_function == 'sha512':
+    elif hash_function == 'sha512':
         hf = hashlib.sha512
 
     seed = cfg.get(args.token_name, 'seed')
