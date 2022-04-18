@@ -157,7 +157,7 @@ def main():
         k = PyKeyboard()
         k.type_string(otp)
     elif args.copy_clipboard:
-        pyperclip.copy(otp.encode('ascii'))
+        pyperclip.copy(int(otp.encode('ascii')))
     else:
         print(otp)
 
