@@ -151,13 +151,14 @@ def main():
     totp = pyotp.TOTP(seed, digest=hf, digits=args.digits)
 
     otp = totp.now()
+    otp.zfill(args.digits)
 
     if args.print_focus:
         from pykeyboard import PyKeyboard
         k = PyKeyboard()
         k.type_string(otp)
     elif args.copy_clipboard:
-        pyperclip.copy(int(otp.encode('ascii')))
+        pyperclip.copy(otp)
     else:
         print(otp)
 
